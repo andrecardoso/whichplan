@@ -19,41 +19,34 @@ public class CallRepository implements Calls {
 	}
 
 	@Override
-	public List<Call> allOfLastMonth() {
+	public CallLog allOfLastMonth() {
 		List<Call> calls = new ArrayList<Call>();
 		
-		String[] from = new String[] {NUMBER,  DATE,  TYPE,  CACHED_NAME,  CACHED_NUMBER_LABEL,  CACHED_NUMBER_TYPE,  DURATION};
+		String[] from = new String[] {NUMBER,  DATE, CACHED_NUMBER_LABEL, DURATION};
 				
 		String[] selectionArgs = {today(), lastMonth()};
 		Cursor c = getContentResolver().query(
                         android.provider.CallLog.Calls.CONTENT_URI, 
                         from, 
-                        DATE + " <= ? and " + DATE +" >= ?",
+                        DATE + " <= ? and " + DATE +" >= ? and " + TYPE + " = " + OUTGOING_TYPE,
                         selectionArgs, 
                         android.provider.CallLog.Calls.DATE + " DESC");
-		
 		
 		if(c != null) {
 			int numberIndex = c.getColumnIndex(NUMBER);
 			int dateIndex = c.getColumnIndex(DATE);
-			int nameIndex = c.getColumnIndex(CACHED_NAME);
 			int numberLabelIndex = c.getColumnIndex(CACHED_NUMBER_LABEL);
-			int numberTypeIndex = c.getColumnIndex(CACHED_NUMBER_TYPE);
 			int durationIndex = c.getColumnIndex(DURATION);
-			int typeIndex = c.getColumnIndex(TYPE);
 			while(c.moveToNext()) {
-				Call call = new Call(c.getString(nameIndex), 
-						new Date(c.getLong(dateIndex)), 
+				Call call = new Call(new Date(c.getLong(dateIndex)), 
 						c.getInt(durationIndex), 
 						c.getString(numberIndex), 
-						c.getString(numberLabelIndex), 
-						CallType.values()[c.getInt(typeIndex)-1], 
-						c.getInt(numberTypeIndex));
+						c.getString(numberLabelIndex));
 				calls.add(call);
 			}
 		}
    
-		return calls;
+		return new CallLog(calls);
 	}
 
 	private String lastMonth() {
@@ -71,7 +64,5 @@ public class CallRepository implements Calls {
 	public ContentResolver getContentResolver() {
 		return contentResolver;
 	}
-	
-	
 
 }

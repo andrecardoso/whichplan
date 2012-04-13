@@ -18,7 +18,7 @@ public class CallLogActivity extends ListActivity {
 
 	private void loadCallLog() {
 		Calls calls = new CallRepository(this.getContentResolver());
-		List<Call> lastMonthCalls = calls.allOfLastMonth();
+		List<Call> lastMonthCalls = calls.allOfLastMonth().getCalls();
 		ListAdapter adapter = new ArrayAdapter<Call>(this, android.R.layout.simple_list_item_1, lastMonthCalls);
         this.setListAdapter(adapter);
 	}
