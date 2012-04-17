@@ -7,6 +7,14 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello" />
+        android:layout_gravity="center"
+        android:text="@string/greetings" />
+
+    <Button
+        android:id="@+id/button_calculate_plans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/calculate_plans" />
 
 </LinearLayout>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, WhichplanActivity!</string>
+    <string name="greetings">Let\'s find the best plan based on your usage!</string>
     <string name="app_name">WhichPlan</string>
     <string name="no_calls">No Calls</string>
+    <string name="calculate_plans">Find best plan</string>
 
 </resources>
