@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * Based on http://www.oi.com.br/ArquivosEstaticos/oi/docs/movel/Portif_Atual_Pre_Qualquer_Hora_%20R2.pdf
+ */
 public class OiCartao implements Plan {
 
 	private static final int ONE_MINUTE_IN_SECONDS = 60;
