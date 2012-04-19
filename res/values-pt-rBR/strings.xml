@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="greetings">Encontre o melhor plano de acordo com o seu uso!</string>
+    <string name="app_name">Qual plano?</string>
+    <string name="no_calls">Sem chamadas</string>
+    <string name="calculate_plans">Qual é o melhor plano?</string>
+    <string name="calculating_best_plan">Calculando melhor plano…</string>
+</resources>
