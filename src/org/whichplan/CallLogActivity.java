@@ -2,6 +2,10 @@ package org.whichplan;
 
 import java.util.List;
 
+import org.whichplan.call.Call;
+import org.whichplan.call.CallRepository;
+import org.whichplan.call.Calls;
+
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
