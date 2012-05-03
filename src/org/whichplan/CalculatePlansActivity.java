@@ -5,7 +5,7 @@ import java.util.List;
 import org.whichplan.call.Call;
 import org.whichplan.call.CallRepository;
 import org.whichplan.call.Calls;
-import org.whichplan.plan.BestPlanFinder;
+import org.whichplan.plan.PlanAnalyser;
 import org.whichplan.plan.Plan;
 
 import android.app.ListActivity;
@@ -61,8 +61,8 @@ public class CalculatePlansActivity extends ListActivity {
 		protected Void doInBackground(Void... params) {
 			Calls calls = new CallRepository(getContentResolver());
 			List<Call> lastMonthCalls = calls.allOfLastMonth().getCalls();
-			BestPlanFinder finder = new BestPlanFinder(lastMonthCalls);
-			plans = finder.calculatePlans();
+			PlanAnalyser finder = new PlanAnalyser(lastMonthCalls);
+			plans = finder.analysePlans();
 			return null;
 		}
 		

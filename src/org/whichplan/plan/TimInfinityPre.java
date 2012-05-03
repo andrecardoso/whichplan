@@ -1,9 +1,7 @@
 package org.whichplan.plan;
 
-import java.util.List;
 
 import org.whichplan.call.Call;
-import org.whichplan.call.CallLog;
 
 public class TimInfinityPre implements Plan {
 
@@ -13,21 +11,18 @@ public class TimInfinityPre implements Plan {
 	
 	private static String[] MOBILE_OPERATORS = {"TIM", "Oi Móvel", "Claro", "Vivo"};
 	
+	private double cost = 0;
+	
 	@Override
-	public double calculate(CallLog callLog) {
-		List<Call> calls = callLog.getCalls();
-		double moneySpent = 0;
-		for (Call call : calls) {
-			if(isTim(call.getOperator())) {
-				moneySpent += 0.25;
-			} else if(isLandLine(call.getOperator())) {
-				moneySpent += 0.50;
-			} else {
-				moneySpent += (call.getDuration()/ONE_MINUTE_IN_SECONDS)*PRICE_PER_MINUTE;
-			}
+	public double calculate(Call call) {
+		if(isTim(call.getOperator())) {
+			this.cost += 0.25;
+		} else if(isLandLine(call.getOperator())) {
+			this.cost += 0.50;
+		} else {
+			this.cost += (call.getDuration()/ONE_MINUTE_IN_SECONDS)*PRICE_PER_MINUTE;
 		}
-		
-		return moneySpent;
+		return this.cost;
 	}
 
 	private boolean isLandLine(String operator) {
@@ -43,7 +38,12 @@ public class TimInfinityPre implements Plan {
 	}
 
 	@Override
+	public double getCost() {
+		return this.cost;
+	}
+
+	@Override
 	public String toString() {
-		return "TIM Infinity Pré";
+		return "TIM Infinity Pré [cost=" + cost + "]";
 	}
 }

@@ -1,10 +1,11 @@
 package org.whichplan.plan;
 
-import org.whichplan.call.CallLog;
+import org.whichplan.call.Call;
 
 
 public interface Plan {
 
-	double calculate(CallLog callLog);
+	double calculate(Call call);
 
+	double getCost();
 }
