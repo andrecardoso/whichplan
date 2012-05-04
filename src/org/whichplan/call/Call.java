@@ -37,4 +37,12 @@ public class Call {
 		return this.time.getDay();
 	}
 	
+	public String getPhoneNumber() {
+		return this.phoneNumber;
+	}
+	
+	public void setOperator(String operator) {
+		this.phoneNumberLabel = operator;
+	}
+	
 }

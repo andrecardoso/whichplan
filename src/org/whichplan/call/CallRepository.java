@@ -1,11 +1,18 @@
 package org.whichplan.call;
 
-import static android.provider.CallLog.Calls.*;
+import static android.provider.CallLog.Calls.CACHED_NUMBER_LABEL;
+import static android.provider.CallLog.Calls.DATE;
+import static android.provider.CallLog.Calls.DURATION;
+import static android.provider.CallLog.Calls.NUMBER;
+import static android.provider.CallLog.Calls.OUTGOING_TYPE;
+import static android.provider.CallLog.Calls.TYPE;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import org.whichplan.contact.ContactUtil;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
@@ -42,6 +49,13 @@ public class CallRepository implements Calls {
 						c.getInt(durationIndex), 
 						c.getString(numberIndex), 
 						c.getString(numberLabelIndex));
+
+				String operator = ContactUtil.getOperatorByNumber(getContentResolver(), call.getPhoneNumber());
+				
+				if (operator != null) {
+					call.setOperator(operator);	
+				}
+				
 				calls.add(call);
 			}
 		}
