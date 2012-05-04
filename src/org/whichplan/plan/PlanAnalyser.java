@@ -10,7 +10,7 @@ import org.whichplan.call.CallLog;
 
 public class PlanAnalyser {
 
-	List<Plan> implementedPlans = Arrays.asList(new Plan[]{new TimInfinityPre(), new OiCartao()});
+	List<Plan> implementedPlans = Arrays.asList(new Plan[]{new TimInfinityPre(), new OiCartao(), new ClaroCartao()});
 	
 	private CallLog callLog;
 	
