@@ -16,7 +16,7 @@ public class OiCartao implements Plan {
 
 	private Map<Integer, Double> dailyBonus;
 	
-	private double charge = 0;
+	private double charge = 30;
 	
 	private int durationSum = 0;
 	
