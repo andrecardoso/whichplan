@@ -16,7 +16,7 @@ public class OiCartao implements Plan {
 
 	private Map<Integer, Double> dailyBonus;
 	
-	private double charge = 20;
+	private double charge = 0;
 	
 	private int durationSum = 0;
 	
@@ -24,12 +24,17 @@ public class OiCartao implements Plan {
 		this.dailyBonus = new HashMap<Integer, Double>();
 	}
 	
+	public OiCartao(double charge) {
+		this();
+		this.charge = charge;
+	}
+	
 	@Override
 	public double calculate(Call call) {
 		if(isOi(call.getOperator())) {
-			boolean bonusSuccess = deduceBonus(call);
-			if(!bonusSuccess) {
-				durationSum+=call.getDuration();	
+			double bonus = deduceBonus(call);
+			if(bonus < 0) {
+				this.durationSum += call.getDuration();
 			}
 		} else {
 			durationSum+=call.getDuration();
@@ -37,7 +42,7 @@ public class OiCartao implements Plan {
 		return this.getCost();
 	}
 
-	private boolean deduceBonus(Call call) {
+	private double deduceBonus(Call call) {
 		double callCost = ((double)call.getDuration()/ONE_MINUTE_IN_SECONDS)*PRICE_PER_MINUTE;
 		Double bonus = this.dailyBonus.get(call.getDay());
 		if(bonus == null) {
@@ -45,7 +50,7 @@ public class OiCartao implements Plan {
 		}
 		bonus = bonus-callCost;
 		this.dailyBonus.put(call.getDay(), bonus);
-		return bonus >= 0;
+		return bonus;
 	}
 
 	private boolean isOi(String operator) {
@@ -54,7 +59,8 @@ public class OiCartao implements Plan {
 	
 	@Override
 	public double getCost() {
-		return ((double)durationSum/ONE_MINUTE_IN_SECONDS)*PRICE_PER_MINUTE;
+		double cost = ((double)durationSum/ONE_MINUTE_IN_SECONDS)*PRICE_PER_MINUTE;
+		return cost > this.charge ? cost : this.charge;
 	}
 
 	@Override
