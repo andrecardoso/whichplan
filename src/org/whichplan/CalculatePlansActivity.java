@@ -61,8 +61,8 @@ public class CalculatePlansActivity extends ListActivity {
 		protected Void doInBackground(Void... params) {
 			Calls calls = new CallRepository(getContentResolver());
 			List<Call> lastMonthCalls = calls.allOfLastMonth().getCalls();
-			PlanAnalyser finder = new PlanAnalyser(lastMonthCalls);
-			plans = finder.analysePlans();
+			PlanAnalyser analyser = new PlanAnalyser(lastMonthCalls);
+			plans = analyser.analysePlans();
 			return null;
 		}
 		

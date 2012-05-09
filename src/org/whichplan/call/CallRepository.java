@@ -31,7 +31,7 @@ public class CallRepository implements Calls {
 		
 		String[] from = new String[] {NUMBER,  DATE, CACHED_NUMBER_LABEL, DURATION};
 				
-		String[] selectionArgs = {today(), lastMonth()};
+		String[] selectionArgs = {lastDay(), firstDay()};
 		Cursor c = getContentResolver().query(
                         android.provider.CallLog.Calls.CONTENT_URI, 
                         from, 
@@ -63,16 +63,32 @@ public class CallRepository implements Calls {
 		return new CallLog(calls);
 	}
 
-	private String lastMonth() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.MONTH, -1);
+	private String lastDay() {
+		Calendar calendar = getLastMonth();
+		int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		return getDayInMillis(calendar, lastDay);
+	}
+
+	private String getDayInMillis(Calendar calendar, int day) {
+		calendar.clear(Calendar.HOUR_OF_DAY);
+		calendar.clear(Calendar.MINUTE);
+		calendar.clear(Calendar.SECOND);
+		calendar.clear(Calendar.MILLISECOND);
+		calendar.set(Calendar.DAY_OF_MONTH, day);
 		long time = calendar.getTimeInMillis();
 		return Long.toString(time);
 	}
 
-	private String today() {
-		long time = new Date().getTime();
-		return Long.toString(time);
+	private String firstDay() {
+		Calendar calendar = getLastMonth();
+		int firstDay = calendar.getActualMinimum(Calendar.DAY_OF_MONTH);
+		return getDayInMillis(calendar, firstDay);
+	}
+
+	private Calendar getLastMonth() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.MONTH, -1);
+		return calendar;
 	}
 
 	public ContentResolver getContentResolver() {
