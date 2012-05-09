@@ -17,6 +17,18 @@ public class OiCartaoTest extends TestCase {
 	int oneMinute = 60;
 	int totalBonusDuration = oneMinute*2;
 	
+	public void testGetCostShouldReturnZeroWhenNoCallsCalculated() {
+		double charge = 30;
+		OiCartao oiCartao = new OiCartao(charge);
+		assertEquals(0.0, oiCartao.getCost());
+	}
+
+	public void testGetTotalCostShouldReturnZeroWhenNoCallsCalculated() {
+		double charge = 30;
+		OiCartao oiCartao = new OiCartao(charge);
+		assertEquals(charge, oiCartao.getTotalCost());
+	}
+	
 	public void testCalculateShouldntSumCallCostsLessThanBonus() {
 		List<Call> calls = new ArrayList<Call>();		
 		calls.add(new Call(new Date(), oneMinute, "888888888", "Oi Móvel"));
@@ -55,28 +67,29 @@ public class OiCartaoTest extends TestCase {
 		assertEquals(pricePerMinute, oiCartao.getCost());
 	}
 	
-	public void testGetCostShouldReturnChargeValueWhenCostLessThanCharge() {
+	public void testGetTotalCostShouldReturnChargeValueWhenCostLessThanCharge() {
 		double charge = pricePerMinute*3;
-		Plan oiCartao = new OiCartao(charge);
+		OiCartao oiCartao = new OiCartao(charge);
 		oiCartao.calculate(new Call(new Date(), oneMinute*2, "88888888", "TIM"));
 		
-		assertEquals(charge, oiCartao.getCost());		
+		assertEquals(charge, oiCartao.getTotalCost());		
 	}
 	
-	public void testGetCostShouldReturnChargeValueWhenCostEqualsCharge() {
+	public void testGetTotalCostShouldReturnChargeValueWhenCostEqualsCharge() {
 		double charge = pricePerMinute*3;
-		Plan oiCartao = new OiCartao(charge);
+		OiCartao oiCartao = new OiCartao(charge);
 		oiCartao.calculate(new Call(new Date(), oneMinute*3, "88888888", "TIM"));
 		
-		assertEquals(charge, oiCartao.getCost());		
+		assertEquals(charge, oiCartao.getTotalCost());		
 	}
 	
-	public void testGetCostShouldReturnCostsWhenCostsGreaterThanCharge() {
+	public void testGetTotalCostShouldReturnCostsWhenCostsGreaterThanCharge() {
 		double charge = pricePerMinute*3;
-		Plan oiCartao = new OiCartao(charge);
+		OiCartao oiCartao = new OiCartao(charge);
 		oiCartao.calculate(new Call(new Date(), oneMinute*4, "88888888", "TIM"));
 		
-		assertEquals(charge+pricePerMinute, oiCartao.getCost());		
+		assertEquals(charge+pricePerMinute, oiCartao.getTotalCost());		
 	}
 	
 }
+

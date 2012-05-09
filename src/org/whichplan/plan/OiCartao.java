@@ -59,14 +59,18 @@ public class OiCartao implements Plan {
 	
 	@Override
 	public double getCost() {
-		double cost = ((double)durationSum/ONE_MINUTE_IN_SECONDS)*PRICE_PER_MINUTE;
+		return ((double)durationSum/ONE_MINUTE_IN_SECONDS)*PRICE_PER_MINUTE;
+	}
+	
+	public double getTotalCost() {
+		double cost = this.getCost();
 		return cost > this.charge ? cost : this.charge;
 	}
 
 	@Override
 	public String toString() {
 		return "Oi Cartão [charge=" + charge
-				+ ", cost=" + this.getCost() + "]";
+				+ ", cost=" + this.getCost() + ", totalCost=" + this.getTotalCost() + "]";
 	}
 	
 }
