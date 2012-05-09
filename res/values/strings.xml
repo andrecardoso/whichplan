@@ -6,5 +6,6 @@
     <string name="no_calls">No Calls</string>
 	<string name="calculate_plans">Which plan is best?</string>
     <string name="calculating_best_plan">Calculating best plan…</string>
-
+	<string name="from">Outgoing calls from:</string>
+	<string name="to">to:</string>
 </resources>

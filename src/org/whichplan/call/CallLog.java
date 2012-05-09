@@ -1,5 +1,6 @@
 package org.whichplan.call;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,14 @@ public class CallLog {
 			durationsByOperator.put(call.getOperator(), current+call.getDuration());
 		}
 		return durationsByOperator;
+	}
+
+	public Date getFirstCallDate() {
+		return calls.get(calls.size()-1).getTime();
+	}
+
+	public Date getLastCallDate() {
+		return calls.get(0).getTime();
 	}
 	
 }

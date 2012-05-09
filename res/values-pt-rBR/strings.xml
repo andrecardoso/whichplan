@@ -5,4 +5,6 @@
     <string name="no_calls">Sem chamadas</string>
     <string name="calculate_plans">Qual é o melhor plano?</string>
     <string name="calculating_best_plan">Calculando melhor plano…</string>
+    <string name="from">Chamadas realizadas entre:</string>
+	<string name="to">e:</string>
 </resources>

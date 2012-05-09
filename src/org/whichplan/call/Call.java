@@ -45,4 +45,8 @@ public class Call {
 		this.phoneNumberLabel = operator;
 	}
 	
+	public Date getTime() {
+		return this.time;
+	}
+	
 }

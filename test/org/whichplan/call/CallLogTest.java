@@ -35,4 +35,23 @@ public class CallLogTest extends TestCase {
 		assertEquals((25+5), durationsByOperator.get("Oi Móvel").intValue());
 		assertEquals(25, durationsByOperator.get("Oi Fixo").intValue());
 	}
+	
+	public void testGetFirstCallDateShouldReturnDateFromLastCallOnList() {
+		List<Call> calls = new ArrayList<Call>();		
+		calls.add(new Call(new Date(), 30, "888888888", "Oi Móvel"));
+		Date date = new Date(1234);
+		calls.add(new Call(date, 30, "888888128", "TIM"));
+		CallLog callLog = new CallLog(calls);
+		assertSame(date, callLog.getFirstCallDate());
+	}
+	
+	public void testGetLastCallDateShouldReturnDateFromFirstCallOnList() {
+		List<Call> calls = new ArrayList<Call>();		
+		Date date = new Date(1234);
+		calls.add(new Call(date, 30, "888888128", "TIM"));
+		calls.add(new Call(new Date(), 30, "888888888", "Oi Móvel"));
+		CallLog callLog = new CallLog(calls);
+		assertSame(date, callLog.getLastCallDate());
+	}
+	
 }
